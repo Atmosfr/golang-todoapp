@@ -1,0 +1,24 @@
+{
+  "makefile.configureOnOpen": false,
+  "go.useLanguageServer": true,
+  "go.autocompleteUnimportedPackages": true,
+  "go.formatTool": "goimports",
+  "go.importsTool": "goimports",
+  "go.toolsEnvVars": {
+    "GOPATH": "/home/dev/go",
+    "GOBIN": "/home/dev/go/bin",
+    "PATH": "${env:PATH}:/home/dev/go/bin"
+  },
+  "editor.defaultFormatter": "golang.go",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "always"
+  },
+  "[go]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always"
+    }
+  }
+}
