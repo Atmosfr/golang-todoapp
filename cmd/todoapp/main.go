@@ -52,8 +52,8 @@ func main() {
 		logger,
 		core_http_middleware.RequestIDMiddleware(),
 		core_http_middleware.LoggerMiddleware(logger),
-		core_http_middleware.RecoverMiddleware(),
 		core_http_middleware.TraceMiddleware(),
+		core_http_middleware.RecoverMiddleware(),
 	)
 
 	apiVersionRouter := core_http_server.NewAPIVersionRouter(core_http_server.ApiVersion1)
