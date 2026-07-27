@@ -80,7 +80,7 @@ func TraceMiddleware() Middleware {
 			latency := time.Since(before)
 
 			logger.Debug("done http response",
-				zap.Int("status_code", rw.StatusCodeOrPanic()),
+				zap.Int("status_code", rw.StatusCode()),
 				zap.Duration("latency", latency),
 			)
 		})
