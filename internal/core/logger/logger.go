@@ -16,9 +16,9 @@ type Logger struct {
 	file *os.File
 }
 
-type LoggerKey string
+type loggerContextKey struct{}
 
-const loggerKey LoggerKey = "logger"
+var loggerKey = loggerContextKey{}
 
 func NewLogger(config Config) (*Logger, error) {
 	zapLvl := zap.NewAtomicLevel()
