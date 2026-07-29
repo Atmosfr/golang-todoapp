@@ -1,0 +1,41 @@
+root = true
+
+# Все файлы
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Go файлы
+[*.go]
+indent_style = tab
+indent_size = 4
+max_line_length = 100
+
+# YAML файлы
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+max_line_length = 120
+
+# JSON файлы
+[*.json]
+indent_style = space
+indent_size = 2
+max_line_length = 120
+
+# Markdown файлы
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = 120
+
+# Makefile
+[Makefile]
+indent_style = tab
+
+# SQL миграции
+[*.sql]
+indent_style = space
+indent_size = 4
+max_line_length = 120
