@@ -64,3 +64,13 @@ todoapp-run:
 	export POSTGRES_HOST=localhost && \
 	go mod tidy && \
 	go run $(PROJECT_ROOT)/cmd/todoapp/main.go
+
+clear-logs:
+	@read -p "Are you sure you want to remove all log files? (y/n) " answer; \
+	if [ "$$answer" = "y" ]; then \
+		docker compose down todoapp-postgres port-forwarder && \
+		@rm -rf $(PROJECT_ROOT)/out/logs/*; \
+		echo "All log files removed."; \
+	else \
+		echo "Operation canceled."; \
+	fi
