@@ -7,6 +7,8 @@ print-project-root:
 	@echo $(PROJECT_ROOT)
 
 env-up:
+	@mkdir -p .out
+	@chmod 777 .out
 	@docker compose up -d todoapp-postgres
 
 env-down:
