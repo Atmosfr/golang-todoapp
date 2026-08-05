@@ -7,6 +7,8 @@ print-project-root:
 	@echo $(PROJECT_ROOT)
 
 env-up:
+	@mkdir -p .out
+	@chmod 777 .out
 	@docker compose up -d todoapp-postgres
 
 env-down:
@@ -62,3 +64,12 @@ todoapp-run:
 	export POSTGRES_HOST=localhost && \
 	go mod tidy && \
 	go run $(PROJECT_ROOT)/cmd/todoapp/main.go
+
+clear-logs:
+	@read -p "Are you sure you want to remove all log files? (y/n) " answer; \
+	if [ "$$answer" = "y" ]; then \
+		rm -rf $(PROJECT_ROOT)/out/logs/*; \
+		echo "All log files removed."; \
+	else \
+		echo "Operation canceled."; \
+	fi
