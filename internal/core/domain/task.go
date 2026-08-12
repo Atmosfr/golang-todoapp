@@ -57,6 +57,16 @@ func NewTaskUninitialized(
 	)
 }
 
+func (t *Task) CompletionDuration() *time.Duration {
+	if !t.Completed || t.CompletedAt == nil {
+		return nil
+	}
+
+	duration := t.CompletedAt.Sub(t.CreatedAt)
+
+	return &duration
+}
+
 func (t *Task) Validate() error {
 	titleLen := len([]rune(t.Title))
 
