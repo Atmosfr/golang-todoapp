@@ -73,3 +73,12 @@ clear-logs:
 	else \
 		echo "Operation canceled."; \
 	fi
+
+todoapp-deploy:
+	@docker compose up -d --build todoapp
+
+todoapp-undeploy:
+	@docker compose down todoapp
+
+ps:
+	@docker compose ps
