@@ -13,8 +13,8 @@ import (
 )
 
 type PatchUserRequest struct {
-	FullName    core_http_types.Nullable[string] `json:"full_name"`
-	PhoneNumber core_http_types.Nullable[string] `json:"phone_number"`
+	FullName    core_http_types.Nullable[string] `json:"full_name"    swaggertype:"string" example:"Ivan Ivanovich"`
+	PhoneNumber core_http_types.Nullable[string] `json:"phone_number" swaggertype:"string" example:"+79998887766"`
 }
 
 func (p *PatchUserRequest) Validate() error {
@@ -48,6 +48,25 @@ func (p *PatchUserRequest) Validate() error {
 
 type PatchUserResponse UserDTOResponse
 
+// PatchUser godoc
+// @Summary Update a user
+// @Description Update an existing user's fields.
+// @Description ### Three-state logic
+// @Description 1. **Field omitted**: `phone_number` is ignored and the existing database value remains unchanged.
+// @Description 2. **Field provided**: `"phone_number": "+79991113284"` - sets a new phone number in the database.
+// @Description 3. **Field provided with NULL**: `"phone_number": null` - clears the phone number in the database.
+// @Description Constraints: `full_name` cannot be set to null.
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param id path int true "User ID"
+// @Param request body PatchUserRequest true "PatchUser request payload"
+// @Success 200 {object} PatchUserResponse "User updated successfully"
+// @Failure 400 {object} core_http_response.ErrorResponse "Bad request"
+// @Failure 404 {object} core_http_response.ErrorResponse "User not found"
+// @Failure 409 {object} core_http_response.ErrorResponse "Conflict"
+// @Failure 500 {object} core_http_response.ErrorResponse "Internal server error"
+// @Router /users/{id} [patch]
 func (h *UsersHTTPHandler) PatchUser(
 	w http.ResponseWriter,
 	r *http.Request,

@@ -46,5 +46,17 @@ services:
     ports:
       - "127.0.0.1:5432:5432"
 
+  swagger:
+    build:
+      context: ${PROJECT_ROOT}
+      dockerfile_inline: |
+        FROM golang:1.26.5-alpine
+        RUN apk add --no-cache git
+        RUN go install github.com/swaggo/swag/cmd/swag@latest
+        WORKDIR /code
+        ENTRYPOINT ["swag"]
+    volumes:
+      - ${PROJECT_ROOT}:/code
+
 volumes:
   todoapp-postgres-data:
