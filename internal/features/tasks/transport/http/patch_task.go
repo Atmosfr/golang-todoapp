@@ -12,9 +12,9 @@ import (
 )
 
 type PatchTaskRequest struct {
-	Title       core_http_types.Nullable[string] `json:"title"`
-	Description core_http_types.Nullable[string] `json:"description"`
-	Completed   core_http_types.Nullable[bool]   `json:"completed"`
+	Title       core_http_types.Nullable[string] `json:"title"       swaggertype:"string" example:"Homework"`
+	Description core_http_types.Nullable[string] `json:"description" swaggertype:"string" example:"I have to do my homework"`
+	Completed   core_http_types.Nullable[bool]   `json:"completed"   swaggertype:"bool"   example:"false"`
 }
 
 type PatchTaskResponse TaskDTOResponse
@@ -49,6 +49,25 @@ func (r *PatchTaskRequest) Validate() error {
 	return nil
 }
 
+// PatchTask godoc
+// @Summary Update a task
+// @Description Update an existing task's fields.
+// @Description ### Three-state logic
+// @Description 1. **Field omitted**: `description` is ignored and the existing database value remains unchanged.
+// @Description 2. **Field provided**: `"description": "My homework"` - sets a new description in the database.
+// @Description 3. **Field provided with NULL**: `"description": null` - clears the description in the database.
+// @Description Constraints: `title` and `completed` cannot be set to null.
+// @Tags tasks
+// @Accept json
+// @Produce json
+// @Param id path int true "Task ID"
+// @Param request body PatchTaskRequest true "PatchTask request payload"
+// @Success 200 {object} PatchTaskResponse "Task updated successfully"
+// @Failure 400 {object} core_http_response.ErrorResponse "Bad request"
+// @Failure 404 {object} core_http_response.ErrorResponse "Task not found"
+// @Failure 409 {object} core_http_response.ErrorResponse "Conflict"
+// @Failure 500 {object} core_http_response.ErrorResponse "Internal server error"
+// @Router /tasks/{id} [patch]
 func (h *TasksHTTPHandler) PatchTask(
 	w http.ResponseWriter,
 	r *http.Request,
