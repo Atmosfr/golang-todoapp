@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TodoApp</title>
+</head>
+<body>
+    <button onclick="loadUsers()">Получить список пользователей</button>
+    <ul id="users-list"></ul>
+    <script>
+        async function loadUsers() {
+            const results = await fetch("http://127.0.0.1:5050/api/v1/users")
+            const users = await results.json()
+
+            const list = document.getElementById('users-list')
+            list.innerHTML = users.map(user => `<li>ID: ${user.id}- FullName: ${user.full_name}</li>`).join("")
+        }
+    </script>
+</body>
+</html>
