@@ -86,10 +86,12 @@ func main() {
 	webTransportHTTP := web_transport_http.NewWebHTTPHandler(webService)
 
 	logger.Debug("initializing HTTP server")
+	httpServerConfig := core_http_server.NewConfigMust()
+
 	httpServer := core_http_server.NewHTTPServer(
-		core_http_server.NewConfigMust(),
+		httpServerConfig,
 		logger,
-		core_http_middleware.CORSMiddleware(),
+		core_http_middleware.CORSMiddleware(httpServerConfig.AllowedOrigins),
 		core_http_middleware.RequestIDMiddleware(),
 		core_http_middleware.LoggerMiddleware(logger),
 		core_http_middleware.TraceMiddleware(),
